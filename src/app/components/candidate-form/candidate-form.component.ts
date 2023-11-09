@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 import {
@@ -21,6 +22,8 @@ import { linkedinPattern, phonePattern } from 'src/app/utils/validators';
 })
 export class CandidateFormComponent {
   candidateForm: FormGroup;
+
+  @Input() candidate!: Candidate;
 
   @Output() submit = new EventEmitter<Candidate>();
   @Output() back = new EventEmitter();
