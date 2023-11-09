@@ -1,0 +1,66 @@
+<form
+  [formGroup]="candidateForm"
+  class="candidate-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field class="half">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" formControlName="name" />
+    <mat-error *ngIf="!candidateForm.pristine && name?.invalid">{{
+      getNameErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="half">
+    <mat-label>Apellidos</mat-label>
+    <input matInput type="text" formControlName="surname" />
+    <mat-error *ngIf="candidateForm.dirty && surname?.invalid">{{
+      getSurnameErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="half">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+    <mat-error *ngIf="candidateForm.dirty && email?.invalid">{{
+      getEmailErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="quarter">
+    <mat-label>Teléfono</mat-label>
+    <input matInput type="tel" formControlName="phone" />
+    <mat-error *ngIf="candidateForm.dirty && email?.invalid">{{
+      getPhoneErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full">
+    <mat-label>Linkedin</mat-label>
+    <input matInput type="url" formControlName="linkedIn" />
+    <mat-error *ngIf="candidateForm.dirty && linkedIn?.invalid">{{
+      getLinkedinErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="quarter">
+    <mat-label>Nivel</mat-label>
+    <mat-select formControlName="experience">
+      <mat-option value="Junior">Junior</mat-option>
+      <mat-option value="Midlevel">Intermedio</mat-option>
+      <mat-option value="Senior">Senior</mat-option>
+    </mat-select>
+    <mat-error *ngIf="candidateForm.dirty && experience?.invalid">{{
+      getExperienceErrors()
+    }}</mat-error>
+  </mat-form-field>
+  <div class="full actions">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="candidateForm.invalid"
+    >
+      Guardar
+    </button>
+    <button type="button" mat-raised-button color="accent" (click)="reset()">
+      Reset
+    </button>
+    <button type="button" mat-button (click)="goBack()">Volver</button>
+  </div>
+</form>

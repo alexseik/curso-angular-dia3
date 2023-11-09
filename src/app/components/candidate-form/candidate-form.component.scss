@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.candidate-form {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 960px;
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: calc(50% - 0.5rem);
+}
+
+.quarter {
+  width: calc(25% - 0.25rem);
+}
+
+.actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
