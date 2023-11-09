@@ -1,0 +1,11 @@
+.add-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+.candidate-list {
+  flex-wrap: wrap;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+}

@@ -10,5 +10,6 @@ export interface Candidate {
   phone?: string;
   linkedIn?: string;
   experience: Experience;
+  skills: string[];
   previousProjects: Project[];
 }

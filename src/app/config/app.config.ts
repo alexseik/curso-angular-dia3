@@ -16,6 +16,7 @@ export const Config: AppConfig = {
       phone: '+34634434312',
       experience: Experience.Junior,
       name: 'Carlos',
+      skills: [],
       previousProjects: [
         {
           name: 'BBVA',
@@ -32,6 +33,7 @@ export const Config: AppConfig = {
       phone: '+34634434312',
       experience: Experience.Midlevel,
       name: 'Juan',
+      skills: [],
       previousProjects: [
         {
           name: 'BBVA',
@@ -55,6 +57,7 @@ export const Config: AppConfig = {
       phone: '+34634434312',
       experience: Experience.Senior,
       name: 'Paco',
+      skills: [],
       previousProjects: [
         {
           name: 'BBVA',

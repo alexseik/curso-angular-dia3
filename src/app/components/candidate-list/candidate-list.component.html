@@ -1,0 +1,10 @@
+<div class="add-button">
+  <button mat-fab color="primary" aria-label="Añadir un candidato">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div class="candidate-list">
+  <div *ngFor="let candidate of candidates">
+    <app-candidate-card [candidate]="candidate"></app-candidate-card>
+  </div>
+</div>
