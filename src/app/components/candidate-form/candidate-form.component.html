@@ -27,7 +27,7 @@
   <mat-form-field class="quarter">
     <mat-label>Teléfono</mat-label>
     <input matInput type="tel" formControlName="phone" />
-    <mat-error *ngIf="candidateForm.dirty && email?.invalid">{{
+    <mat-error *ngIf="candidateForm.dirty && phone?.invalid">{{
       getPhoneErrors()
     }}</mat-error>
   </mat-form-field>

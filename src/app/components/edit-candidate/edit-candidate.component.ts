@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidatesService } from 'src/app/services/candidates.service';
+import { Observable, map, switchMap } from 'rxjs';
+import { Candidate } from 'src/app/models/candidate';
 
 @Component({
   selector: 'app-edit-candidate',
@@ -9,7 +11,9 @@ import { CandidatesService } from 'src/app/services/candidates.service';
   styleUrls: ['./edit-candidate.component.scss'],
 })
 export class EditCandidateComponent implements OnInit {
-  // candidate$!: Observable<Candidate>;
+  candidate!: Candidate;
+
+  candidate$!: Observable<Candidate>;
 
   // param: string;
 
@@ -21,9 +25,25 @@ export class EditCandidateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      debugger;
-      console.log({ params });
+    const miObs = this.activatedRoute.paramMap.pipe(
+      switchMap((params) => {
+        const selectedId = parseInt(params.get('id')!, 10);
+        return this.candidatesService.getCandidate(selectedId);
+      })
+    );
+
+    miObs.subscribe((candidate) => {
+      this.candidate = candidate;
     });
+  }
+
+  onSubmit(candidate: Candidate) {
+    debugger;
+    this.candidatesService.update(candidate);
+    this.router.navigate(['/']);
+  }
+
+  back() {
+    this.location.back();
   }
 }

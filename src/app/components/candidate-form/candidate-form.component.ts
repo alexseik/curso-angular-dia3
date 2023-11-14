@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -20,7 +21,7 @@ import { linkedinPattern, phonePattern } from 'src/app/utils/validators';
   styleUrls: ['./candidate-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CandidateFormComponent {
+export class CandidateFormComponent implements OnInit {
   candidateForm: FormGroup;
 
   @Input() candidate!: Candidate;
@@ -37,6 +38,10 @@ export class CandidateFormComponent {
       linkedIn: ['', [Validators.pattern(linkedinPattern)]],
       experience: ['', [Validators.required]],
     });
+  }
+
+  ngOnInit(): void {
+    this.reset();
   }
 
   get name() {
@@ -111,6 +116,7 @@ export class CandidateFormComponent {
   onSubmit() {
     const savedCandidate: Candidate = Object.assign(
       {},
+      this.candidate,
       this.candidateForm.value
     );
     this.submit.emit(savedCandidate);
@@ -122,5 +128,15 @@ export class CandidateFormComponent {
 
   reset() {
     this.candidateForm.reset();
+    if (this.candidate) {
+      this.candidateForm.setValue({
+        name: this.candidate.name,
+        surname: this.candidate.surname,
+        email: this.candidate.email,
+        phone: this.candidate.phone ? this.candidate.phone : null,
+        linkedIn: this.candidate.linkedIn ? this.candidate.linkedIn : null,
+        experience: this.candidate.experience,
+      });
+    }
   }
 }

@@ -1,1 +1,7 @@
-<p>edit-candidate works!</p>
+<app-candidate-form
+  *ngIf="candidate"
+  [candidate]="candidate"
+  (submit)="onSubmit($event)"
+  (back)="back()"
+>
+</app-candidate-form>
