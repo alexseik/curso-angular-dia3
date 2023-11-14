@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -37,6 +38,7 @@ export class CandidateFormComponent implements OnInit {
       phone: ['', [Validators.pattern(phonePattern)]],
       linkedIn: ['', [Validators.pattern(linkedinPattern)]],
       experience: ['', [Validators.required]],
+      skills: this.fb.array([]),
     });
   }
 
@@ -113,6 +115,10 @@ export class CandidateFormComponent implements OnInit {
       : '';
   }
 
+  get skills() {
+    return this.candidateForm.get('skills') as FormArray;
+  }
+
   onSubmit() {
     const savedCandidate: Candidate = Object.assign(
       {},
@@ -128,7 +134,18 @@ export class CandidateFormComponent implements OnInit {
 
   reset() {
     this.candidateForm.reset();
+    this.skills.clear();
     if (this.candidate) {
+      const skills = [];
+      if (Array.isArray(this.candidate.skills)) {
+        this.candidate.skills.forEach((skill, index) => {
+          skills.push(skill);
+          this.addSkill();
+        });
+      } else {
+        this.addSkill();
+        skills.push('');
+      }
       this.candidateForm.setValue({
         name: this.candidate.name,
         surname: this.candidate.surname,
@@ -136,7 +153,16 @@ export class CandidateFormComponent implements OnInit {
         phone: this.candidate.phone ? this.candidate.phone : null,
         linkedIn: this.candidate.linkedIn ? this.candidate.linkedIn : null,
         experience: this.candidate.experience,
+        skills,
       });
     }
+  }
+
+  addSkill() {
+    this.skills.push(this.fb.control(''));
+  }
+
+  removeSkill(index: number) {
+    this.skills.removeAt(index);
   }
 }
