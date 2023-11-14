@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidatesService } from 'src/app/services/candidates.service';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, Subscription, map, switchMap } from 'rxjs';
 import { Candidate } from 'src/app/models/candidate';
 
 @Component({
@@ -10,10 +10,12 @@ import { Candidate } from 'src/app/models/candidate';
   templateUrl: './edit-candidate.component.html',
   styleUrls: ['./edit-candidate.component.scss'],
 })
-export class EditCandidateComponent implements OnInit {
+export class EditCandidateComponent implements OnInit /*, OnDestroy*/ {
   candidate!: Candidate;
 
   candidate$!: Observable<Candidate>;
+
+  // private subscriptions: Subscription[] = [];
 
   // param: string;
 
@@ -25,20 +27,27 @@ export class EditCandidateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const miObs = this.activatedRoute.paramMap.pipe(
+    this.candidate$ = this.activatedRoute.paramMap.pipe(
       switchMap((params) => {
         const selectedId = parseInt(params.get('id')!, 10);
         return this.candidatesService.getCandidate(selectedId);
       })
     );
 
-    miObs.subscribe((candidate) => {
-      this.candidate = candidate;
-    });
+    // this.subscriptions.push(
+    //   miObs.subscribe((candidate) => {
+    //     this.candidate = candidate;
+    //   })
+    // );
+
+    // subscription.unsubscribe();
   }
 
+  // ngOnDestroy(): void {
+  //   this.subscriptions.forEach((s) => s.unsubscribe());
+  // }
+
   onSubmit(candidate: Candidate) {
-    debugger;
     this.candidatesService.update(candidate);
     this.router.navigate(['/']);
   }

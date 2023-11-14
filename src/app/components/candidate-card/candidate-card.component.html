@@ -17,6 +17,10 @@
         <span class="candidate-detail__label">Phone</span>
         <span class="candidate-detail__value">{{ candidate.phone }}</span>
       </div>
+      <div class="candidate-detail" *ngIf="candidate.linkedIn">
+        <span class="candidate-detail__label">LinkedIn</span>
+        <span class="candidate-detail__value">{{ candidate.linkedIn }}</span>
+      </div>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="candidate-card__content">

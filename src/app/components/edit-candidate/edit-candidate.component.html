@@ -1,5 +1,5 @@
 <app-candidate-form
-  *ngIf="candidate"
+  *ngIf="candidate$ | async as candidate"
   [candidate]="candidate"
   (submit)="onSubmit($event)"
   (back)="back()"
